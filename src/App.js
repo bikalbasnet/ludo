@@ -1,6 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
+import { paths, homePaths, safeStars } from "./const";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles(() => {
   const boxSize = 100 / 15 + "%";
@@ -12,6 +15,7 @@ const useStyles = makeStyles(() => {
       boxSizing: "border-box",
       display: "flex",
       flexWrap: "wrap",
+      margin: "auto",
     },
     box: {
       boxSizing: "border-box",
@@ -21,24 +25,64 @@ const useStyles = makeStyles(() => {
       border: "1px solid black",
       width: boxSize,
       fontSize: "14px",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "11px",
+      flexWrap: "wrap",
     },
     yardRed: {
       background: "red",
+      border: 0,
     },
     yardGreen: {
       background: "green",
+      border: 0,
     },
     yardBlue: {
       background: "blue",
+      border: 0,
     },
     yardYellow: {
       background: "yellow",
+      border: 0,
     },
     home: {
-      background: "purple",
+      background: "white",
+      border: 0,
+    },
+    homeRedGreen: {
+      background: "linear-gradient(to bottom left,green 50%,red 50%)",
+    },
+    homeGreenYellow: {
+      background: "linear-gradient(to bottom right,green 50%,yellow 50%)",
+    },
+    homeYellowBlue: {
+      background: "linear-gradient(to top right,blue 50%,yellow 50%)",
+    },
+    homeBlueRed: {
+      background: "linear-gradient(to top left,blue 50%,red 50%)",
+    },
+    homeColorAll: {
+      background: 'url("image/home.png") no-repeat center',
     },
     path: {
       background: "white",
+    },
+    safePathRed: {
+      background: "red",
+    },
+    safePathGreen: {
+      background: "green",
+    },
+    safePathBlue: {
+      background: "blue",
+    },
+    safePathYellow: {
+      background: "yellow",
+    },
+    safeStars: {
+      background: 'url("image/star.png") no-repeat center',
     },
   };
 });
@@ -49,61 +93,6 @@ for (let i = 0; i < 15; i++) {
     boxes.push([i, j]);
   }
 }
-
-const paths = [
-  90,
-  91,
-  92,
-  93,
-  94,
-  95,
-  81,
-  66,
-  51,
-  36,
-  21,
-  6,
-  7,
-  8,
-  23,
-  38,
-  53,
-  68,
-  83,
-  99,
-  100,
-  101,
-  102,
-  103,
-  104,
-  119,
-  134,
-  133,
-  132,
-  131,
-  130,
-  129,
-  143,
-  158,
-  173,
-  188,
-  203,
-  218,
-  217,
-  216,
-  201,
-  186,
-  171,
-  156,
-  141,
-  125,
-  124,
-  123,
-  122,
-  121,
-  120,
-  105,
-];
 
 const fx = (row, col, minRow, maxRow, minCol, maxCol) => {
   return row >= minRow && row <= maxRow && col >= minCol && col <= maxCol;
@@ -120,9 +109,22 @@ const Box = ({ row, col, index }) => {
         [classes.yardYellow]: fx(row, col, 9, 15, 9, 15),
         [classes.home]: fx(row, col, 6, 8, 6, 8),
         [classes.path]: paths.includes(index),
+        [classes.safePathRed]: homePaths.red.includes(index),
+        [classes.safePathGreen]: homePaths.green.includes(index),
+        [classes.safePathBlue]: homePaths.blue.includes(index),
+        [classes.safePathYellow]: homePaths.yellow.includes(index),
+
+        [classes.homeRedGreen]: homePaths.redGreen.includes(index),
+        [classes.homeGreenYellow]: homePaths.greenYellow.includes(index),
+        [classes.homeYellowBlue]: homePaths.yellowBlue.includes(index),
+        [classes.homeBlueRed]: homePaths.blueRed.includes(index),
+        [classes.homeColorAll]: homePaths.allColor.includes(index),
+
+        [classes.safeStars]: safeStars.includes(index),
       })}
     >
-      {index}
+      {/* {index} */}
+      {/* <FontAwesomeIcon icon={faCircle} /> */}
     </span>
   );
 };
@@ -132,8 +134,8 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      {boxes.map((box, i) => {
-        return <Box row={box[0]} col={box[1]} index={i} />;
+      {boxes.map((box, index) => {
+        return <Box key={index} row={box[0]} col={box[1]} index={index} />;
       })}
     </div>
   );

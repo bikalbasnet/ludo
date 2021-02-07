@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import { paths, homePaths, safeStars } from "./const";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = makeStyles(() => {
   const boxSize = 100 / 15 + "%";
